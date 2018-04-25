@@ -2,44 +2,88 @@ package Task1;
 
 import java.util.Scanner;
 
-public class Ship extends Vehicle {
+public class Ship extends Vehicle implements ISwim{
     private int passengers;
     private String port;
+    private static String type="SHIP";
 
-    public Ship(int price, int speed, int year, String port, int pas, int x, int y){
-        super(price,speed,year,x,y);
+    public Ship(int x, int y, String port, int price, int speed, int year, int pas){
+        super(x, y, price, speed, year);
         this.port=port;
         this.passengers=pas;
     }
 
+    public static class Engine{
+        private static String engine="винтовой двигатель";
+
+        public static String vehicleEngine(){
+            return type+" "+engine;
+        }
+    }
+
+    class BodyShape extends Vehicle.BodyShape{
+        private int decksNumber;
+        private int cargoHolds;
+
+        BodyShape(String col, int decks, int cargo){
+            super(col);
+            decksNumber=decks;
+            cargoHolds=cargo;
+        }
+
+        public String getDetailInformation(){
+            return super.getDetailInformation()+", количество палуб: " + decksNumber +
+                    ", количество грузовых трюмов: "+cargoHolds+
+                    ", пассажиры: " + passengers +
+                    ", скорость: " + getSpeed();
+        }
+    }
+
+    @Override
+    public String getType() {
+        return type;
+    }
+
+    @Override
     public void setVehicleParameters(Scanner sc){
         super.setVehicleParameters(sc);
-        int passengers=-1;
+        int pas=-1;
 
-        while (passengers<0){
+        while (pas<0){
             System.out.println("Введите количество пассажиров:");
-            passengers=sc.nextInt();
+            pas=sc.nextInt();
         }
-        this.passengers=passengers;
-
-        System.out.println("Введите название порта:");
-        port=sc.next();
+        this.passengers=pas;
     }
 
+    @Override
     public void getVehicleParameters(){
         super.getVehicleParameters();
-        System.out.print(", port: " + port  +
-                ", passengers: " + passengers);
+         System.out.print(", пассажиры: " + passengers);
     }
 
-    public String vehicleType(){
-        return "Ship";
+    @Override
+    public void getVehicleCoordinates(){
+        super.getVehicleCoordinates();
+        System.out.print(", порт: " + port);
+    }
+
+    @Override
+    public void setVehicleCoordinates(Scanner sc){
+        super.setVehicleCoordinates(sc);
+        System.out.println("Введите название порта:");
+        this.port=sc.next();
     }
 
     @Override
     public String toString() {
         return super.toString()+
-                ", port: " + port  +
-                ", passengers: " + passengers;
+                ", порт: " + port  +
+                ", пассажиры: " + passengers;
+    }
+
+    @Override
+    public int swim() {
+        return getSpeed();
     }
 }

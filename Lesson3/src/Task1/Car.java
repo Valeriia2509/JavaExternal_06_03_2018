@@ -1,15 +1,43 @@
 package Task1;
 
-public class Car extends Vehicle {
-    public Car(int price, int speed, int year, int x, int y){
-        super(price,speed,year,x,y);
+import java.util.Scanner;
+
+public class Car extends Vehicle implements IMove{
+    private static String type="CAR";
+
+    public Car(int x, int y, int price, int speed, int year){
+        super(x,y,price,speed,year);
     }
-    public String vehicleType(){
-        return "Car";
+
+    public static class Engine{
+        private static String engine="электромотор";
+
+        public static String vehicleEngine(){
+            return type+" "+engine;
+        }
+    }
+
+    class BodyShape extends Vehicle.BodyShape{
+        private String bodyShape;
+
+        public BodyShape (String color, String bodyShape){
+            super(color);
+            this.bodyShape=bodyShape;
+        }
+
+        public String getDetailInformation(){
+            return super.getDetailInformation()+", тип кузова: " + bodyShape +
+                    ", скорость: " + getSpeed();
+        }
     }
 
     @Override
-    public String toString() {
-        return super.toString();
+    public String getType() {
+        return type;
+    }
+
+    @Override
+    public int move() {
+        return getSpeed();
     }
 }

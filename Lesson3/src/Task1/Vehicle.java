@@ -8,16 +8,63 @@ public abstract class Vehicle {
     private int price;
     private int speed;
     private int year;
+    private static String type="VEHICLE";
 
-    public Vehicle(int price, int speed, int year, int x, int y) {
+    public Vehicle( int x, int y, int price, int speed, int year) {
         this.x=x;
         this.y=y;
-        this.price = price;
-        this.speed = speed;
-        this.year = year;
+        this.price=price;
+        this.speed=speed;
+        this.year=year;
     }
 
-    abstract public String vehicleType();
+    class BodyShape {
+        private String color;
+
+        public BodyShape (String color){
+            this.color=color;
+        }
+
+        public String getDetailInformation(){
+            return getType()+", цвет: " + color;
+        }
+    }
+
+    public void getVehicleParameters(){
+        System.out.print(getType()+" цена: " + price +
+                ", год: " + year +
+                ", скорость: " + speed);
+    }
+
+    public void setVehicleParameters(Scanner sc){
+        int pr=-1;
+        int sp=-1;
+        int ye=-1;
+
+        while (pr<0){
+            System.out.println("Введите цену:");
+            pr=sc.nextInt();
+        }
+        while (sp<0){
+            System.out.println("Введите скорость:");
+            sp=sc.nextInt();
+        }
+        while (ye<0){
+            System.out.println("Введите год:");
+            ye=sc.nextInt();
+        }
+        price=pr;
+        speed=sp;
+        year=ye;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
 
     public int getPrice() {
         return price;
@@ -31,44 +78,10 @@ public abstract class Vehicle {
         return year;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
+    public String getType(){return type;}
 
     public void getVehicleCoordinates(){
-        System.out.println(vehicleType()+" "+" coordinates: " + x +" " + y);
-    }
-
-    public void getVehicleParameters(){
-        System.out.print(vehicleType()+" price: " + price +
-                ", speed: " + speed +
-                ", year: " + year);
-    }
-
-    public void setVehicleParameters(Scanner sc){
-        int price=-1;
-        int speed=-1;
-        int year=-1;
-
-        while (price<0){
-            System.out.println("Введите цену:");
-            price=sc.nextInt();
-        }
-        while (speed<0){
-            System.out.println("Введите скорость:");
-            speed=sc.nextInt();
-        }
-        while (year<0){
-            System.out.println("Введите год:");
-            year=sc.nextInt();
-        }
-        this.price=price;
-        this.speed=speed;
-        this.year=year;
+        System.out.print(getType()+" координаты: " + x +" " + y);
     }
 
     public void setVehicleCoordinates(Scanner sc){
@@ -91,10 +104,9 @@ public abstract class Vehicle {
     @Override
     public String toString() {
         return
-               vehicleType()+ " coordinates: " + x +
-                " " + y +
-                ", price: " + price +
-                ", speed: " + speed +
-                ", year: " + year;
+               getType()+ " координаты: " + x +
+                        " " + y +
+                        ", цена: " + price +
+                        ", год: " + year + ", скорость: " + speed;
     }
 }

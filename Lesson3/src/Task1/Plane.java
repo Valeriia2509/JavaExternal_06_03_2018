@@ -2,63 +2,80 @@ package Task1;
 
 import java.util.Scanner;
 
-public class Plane extends Vehicle {
+public class Plane extends Vehicle implements IFly{
     private int hight;
     private int passengers;
-    public Plane(int price, int speed, int year, int hig, int pas, int x, int y){
-        super(price,speed,year,x,y);
+    private static String type="PLANE";
+
+    public Plane(int x, int y, int price, int speed, int year, int hig, int pas){
+        super(x,y,price,speed,year);
         this.hight=hig;
         this.passengers=pas;
     }
 
-    public int getHight() {
-        return hight;
+    public static class Engine{
+        private static String engine="реактивный двигатель";
+
+        public static String vehicleEngine(){
+            return type+" "+engine;
+        }
     }
 
-    public void setHight(int high) {
-        this.hight = hight;
+    class BodyShape extends Vehicle.BodyShape{
+        private boolean isBusinessClass;
+
+        BodyShape(String color, boolean isBusClass){
+            super(color);
+            isBusinessClass=isBusClass;
+        }
+
+        public String getDetailInformation(){
+            return super.getDetailInformation()+", наличие бизнесс класса: " + isBusinessClass +
+                    ", пассажиры: " + passengers +
+                    ", скорость: " + getSpeed();
+        }
     }
 
-    public int getPassengers() {
-        return passengers;
-    }
-
-    public void setPassengers(int passengers) {
-        this.passengers = passengers;
-    }
-
+    @Override
     public void getVehicleParameters(){
         super.getVehicleParameters();
-        System.out.print(", high: " + hight  +
-                ", passengers: " + passengers);
+        System.out.print(", высота: " + hight  +
+                ", пассажиры: " + passengers);
     }
 
+    @Override
     public void setVehicleParameters(Scanner sc){
         super.setVehicleParameters(sc);
-        int hight=-1;
-        int passengers=-1;
+        int hi=-1;
+        int pas=-1;
 
-        while (passengers<0){
+        while (pas<0){
             System.out.println("Введите количество пассажиров:");
-            passengers=sc.nextInt();
+            pas=sc.nextInt();
         }
-        this.passengers=passengers;
+        this.passengers=pas;
 
-        while (hight<0){
+        while (hi<0){
             System.out.println("Введите высоту:");
-            hight=sc.nextInt();
+            hi=sc.nextInt();
         }
-        this.hight=hight;
+        this.hight=hi;
     }
 
-    public String vehicleType(){
-        return "Plane";
+    @Override
+    public String getType() {
+        return type;
     }
 
     @Override
     public String toString() {
         return super.toString()+
-                ", high: " + hight  +
-                ", passengers: " + passengers;
+                ", высота: " + hight  +
+                ", пассажиры: " + passengers;
+    }
+
+    @Override
+    public int fly() {
+        return getSpeed();
     }
 }

@@ -1,25 +1,24 @@
 package Task1;
 
-public class Line extends Polygon{
+import java.io.Serializable;
+
+public class Line implements Figure, Serializable{
     private Point A;
     private Point B;
 
     public Line(int x1, int y1, int x2, int y2){
         A=new Point(x1,y1);
         B=new Point(x2,y2);
-        dimension=0;
     }
 
     public Line(Point a, Point b){
         this.A=a;
         this.B=b;
-        dimension=0;
     }
 
     public Line(Point a, int x, int y){
         A=a;
         B=new Point(x,y);
-        dimension=0;
     }
 
     public Point getA() {
@@ -50,6 +49,6 @@ public class Line extends Polygon{
 
     @Override
     public String toString() {
-        return "("+A.toString()+"; "+B.toString()+")";
+        return "["+A.toString()+"; "+B.toString()+"]";
     }
 }

@@ -1,17 +1,17 @@
 package Task1;
 
-public class Point extends Polygon{
+import java.io.Serializable;
+
+public class Point implements Figure, Serializable{
+    
     private int x;
     private int y;
 
-    public Point(){
-        dimension=0;
-    }
+    public Point(){}
 
     public Point(int x,int y){
         this.x=x;
         this.y=y;
-        dimension=0;
     }
 
     public void setX(int x) {

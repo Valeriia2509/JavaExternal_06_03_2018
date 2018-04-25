@@ -1,12 +1,14 @@
 package Task1;
 
-public class Triangle extends Polygon{
+import java.io.Serializable;
+
+public class Triangle implements Figure, Serializable{
     private Point A;
     private Point B;
     private Point C;
-    private Line AB;
-    private Line BC;
-    private Line AC;
+    transient private Line AB;
+    transient private Line BC;
+    transient private Line AC;
 
     public Triangle(int x1, int y1, int x2, int y2, int x3, int y3){
         A=new Point(x1,y1);
@@ -15,7 +17,6 @@ public class Triangle extends Polygon{
         AB=new Line(A,B);
         BC=new Line(B,C);
         AC=new Line(A,C);
-        dimension=1;
     }
 
     public Triangle(Point a, Point b, Point c){
@@ -25,7 +26,6 @@ public class Triangle extends Polygon{
         AB=new Line(A,B);
         BC=new Line(B,C);
         AC=new Line(A,C);
-        dimension=1;
     }
 
     public Triangle(Line ab, Point c){
@@ -35,7 +35,6 @@ public class Triangle extends Polygon{
         B=ab.getB();
         BC=new Line(B,C);
         AC=new Line(A,C);
-        dimension=1;
     }
 
     public void setA(Point a) {
@@ -54,6 +53,6 @@ public class Triangle extends Polygon{
 
     @Override
     public String toString() {
-        return "("+A.toString()+"; "+B.toString()+"; "+C.toString()+")";
+        return "["+A.toString()+"; "+B.toString()+"; "+C.toString()+"]";
     }
 }

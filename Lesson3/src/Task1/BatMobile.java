@@ -1,23 +1,51 @@
 package Task1;
 
-public class BatMobile extends Car implements IFly,ISwim {
+public class BatMobile extends AmphibiousVehicle implements IFly {
+    private static String type="BATMOBILE";
 
-    public BatMobile(int price, int speed, int year, int x, int y) {
-        super(price, speed, year, x, y);
+    public BatMobile(int x, int y, int price, int speed, int year) {
+        super(x, y, price, speed, year);
+    }
+
+    public static class Engine{
+        private static String engine="реактивный двигатель";
+
+        public static String vehicleEngine(){
+            return type+" "+engine;
+        }
+    }
+
+    class BodyShape extends AmphibiousVehicle.BodyShape{
+        private boolean hasWeapon;
+
+        public BodyShape (String col,String bodyShape, boolean isArmored, boolean hasWeap){
+            super(col,bodyShape,isArmored);
+            hasWeapon=hasWeap;
+        }
+
+        public String getDetailInformation(){
+            return super.getDetailInformation()+", наличие оружия: "+hasWeapon;
+        }
     }
 
     @Override
-    public String vehicleType(){
-        return "BatMobile";
+    public String getType() {
+        return type;
     }
 
+    @Override
+    public void getVehicleParameters(){
+        super.getVehicleParameters();
+        System.out.print(" "+fly()+" (в полете)");
+    }
     @Override
     public int fly() {
-        return getSpeed()*10;
+        return getSpeed()*3;
     }
 
     @Override
-    public int swim() {
-        return getSpeed()/10;
+    public String toString(){
+        return super.toString()+" "+fly()+" (в полете)";
     }
+
 }
